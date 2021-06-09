@@ -37,14 +37,29 @@ ys_hg_prompt_info() {
 
 local exit_code="%(?,,C:%{$fg[red]%}%?%{$reset_color%})"
 
+# python version info
+local python_version_info='$(python_version_prompt_info)'
+python_version_prompt_info() {
+  if command -v python > /dev/null 2>&1; then
+    PYTHON_VERSION="$(python -V 2>&1)"
+    PYTHON_VERSION=${PYTHON_VERSION/Python /Python}
+    PYTHON_VERSION=${PYTHON_VERSION/ */}
+    CONDA_DEFAULT_ENV_NAME=''
+    if [ -n "$CONDA_DEFAULT_ENV" ]; then
+      CONDA_DEFAULT_ENV_NAME="$CONDA_DEFAULT_ENV"
+	  echo -n "%{$fg[magenta]%}conda::${CONDA_DEFAULT_ENV_NAME} %{$reset_color%}"
+    fi
+  fi
+}
+
 # Prompt format:
 #
-# PRIVILEGES USER @ MACHINE in DIRECTORY on git:BRANCH STATE [TIME] C:LAST_EXIT_CODE
+# PRIVILEGES USER @ MACHINE in DIRECTORY on git:BRANCH STATE [TIME] (CONDA_ENV) C:LAST_EXIT_CODE
 # $ COMMAND
 #
 # For example:
 #
-# % ys @ ys-mbp in ~/.oh-my-zsh on git:master x [21:47:42] C:0
+# % ys @ ys-mbp in ~/.oh-my-zsh on git:master x [21:47:42] (python3.7) C:0
 # $
 PROMPT="
 %{$terminfo[bold]$fg[blue]%}#%{$reset_color%} \
@@ -54,7 +69,8 @@ PROMPT="
 %{$fg[white]%}in \
 %{$terminfo[bold]$fg[yellow]%}%~%{$reset_color%}\
 ${hg_info}\
-${git_info}\
- \
-%{$fg[white]%}[%*] $exit_code
+${git_info} \
+${python_version_info}\
+%{$fg[white]%}[%*]\
+${exit_code}
 %{$terminfo[bold]$fg[red]%}$ %{$reset_color%}"
