@@ -38,7 +38,7 @@ ys_hg_prompt_info() {
 local exit_code="%(?,,C:%{$fg[red]%}%?%{$reset_color%})"
 
 # python version info
-local python_version_info='$(python_version_prompt_info)'
+local python_version_info='%{$fg[white]%} $(python_version_prompt_info)'
 python_version_prompt_info() {
   if command -v python > /dev/null 2>&1; then
     PYTHON_VERSION="$(python -V 2>&1)"

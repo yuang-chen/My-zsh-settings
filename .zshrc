@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/yuang/.oh-my-zsh"
+export ZSH="/home/chenyuang/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -68,14 +68,15 @@ ZSH_THEME="ys"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump zsh-autosuggestions extract)
+plugins=(git autojump zsh-autosuggestions extract k  fzf-zsh-plugin zsh-syntax-highlighting)
 
 #alias python="/usr/bin/python2.7"
+alias python=python3
 
 
 source $ZSH/oh-my-zsh.sh
 
-[[ -s /home/yuang/.autojump/etc/profile.d/autojump.sh ]] && source /home/yuang/.autojump/etc/profile.d/autojump.sh
+[[ -s /home/chenyuang/.autojump/etc/profile.d/autojump.sh ]] && source /home/chenyuang/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
 # User configuration
@@ -105,20 +106,32 @@ autoload -U compinit && compinit -u
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #source ~/.ohmyzsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+HOSTNAME="$(hostname)"  # Conda clobbers HOST, so we save the real hostname into another variable.
 
+precmd() {
+    OLDHOST="${HOST}"
+    HOST="${HOSTNAME}"
+}
+
+preexec() {
+    HOST="${OLDHOST}"
+}
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/yuang/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/chenyuang/Programs/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/yuang/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/yuang/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/chenyuang/Programs/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/chenyuang/Programs/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/yuang/anaconda3/bin:$PATH"
+        export PATH="/home/chenyuang/Programs/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
