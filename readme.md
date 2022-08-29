@@ -8,7 +8,7 @@ make -j && make install
 ```
 
 ## deploy oh-my-zsh
-oh-my-zsh with two plugins: autojump and fzf
+plugins: [autojump](https://github.com/wting/autojump#installation), [highlighting](highlighting), [fzf](https://github.com/unixorn/fzf-zsh-plugin)
 ```
 mv .oh-my-zsh ~/ 
 mv .autojump ~/
