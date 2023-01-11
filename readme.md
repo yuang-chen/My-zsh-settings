@@ -35,9 +35,11 @@ A nice [theme](https://github.com/romkatv/powerlevel10k) for oh-my-zsh
 ```
 mv .fonts ~/
 fc-cache -fv
+git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 exec zsh
-in ~/.zshrc: edit ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
+in `~/.zshrc`: edit `ZSH_THEME="powerlevel10k/powerlevel10k"`
+
 type `powerlevel10k` if the theme needs to be configured
 
 ## [oh-my-zsh] Can't update: not a git repository.
