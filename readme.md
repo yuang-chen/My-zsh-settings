@@ -9,10 +9,8 @@ make -j && make install
 in `.bashrc`, add env variables:
 ``` shell
 NCURSE="/path/to/ncurses-6.1"
-export PATH=${NCURSE}/bin:$PATH
-export LD_LIBRARY_PATH=${NCURSE}/lib:${LD_LIBRARY_PATH}
-export CFLAGS=-I${NCURSE}/include
-export CPPFLAGS="-I${NCURSE}/include" LDFLAGS="-L${NCURSE}/lib" 
+export CPPFLAGS="-I${NCURSE}/include" 
+export LDFLAGS="-L${NCURSE}/lib" 
 ```
 
 ## install ZSH
@@ -31,6 +29,17 @@ mv .oh-my-zsh ~/
 mv .autojump ~/
 mv .fzf ~/
 ```
+
+## install power10k theme
+A nice [theme](https://github.com/romkatv/powerlevel10k) for oh-my-zsh
+```
+mv .fonts ~/
+fc-cache -fv
+exec zsh
+in ~/.zshrc: edit ZSH_THEME="powerlevel10k/powerlevel10k"
+```
+type `powerlevel10k` if the theme needs to be configured
+
 ## [oh-my-zsh] Can't update: not a git repository.
 ``` shell
 cd ~/.oh-my-zsh
@@ -54,8 +63,6 @@ in `settings.json` on the remote machine:
 {
     "terminal.integrated.env.linux": {
         "PATH":"/path/to/ncurses-6.1/bin:${env:PATH}",
-        "LD_LIBRARY_PATH":"/path/to/ncurses-6.1/lib:${env:LD_LIBRARY_PATH}",
-        "CFLAGS":"-I/path/to/ncurses-6.1/include",
         "CPPFLAGS":"-I/path/to/ncurses-6.1/include",
         "LDFLAGS":"-L/path/to/ncurses-6.1/lib" 
     },
